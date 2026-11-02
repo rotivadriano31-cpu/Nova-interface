@@ -13,102 +13,151 @@
 
 <body>
 
+    <!-- FUNDO ESPACIAL -->
     <div class="space-background"></div>
 
+    <!-- CABEÇALHO -->
     <header class="topbar">
+
         <div class="logo">NOVA<span>.</span></div>
 
         <div class="system-info">
+
             <span class="status">
                 <span class="status-dot"></span>
                 Sistema online
             </span>
+
             <span id="clock">00:00</span>
-<div class="wallpaper-controls">
-    <button id="changeWallpaper" class="wallpaper-button">
-        Alterar fundo
-    </button>
 
-    <button id="resetWallpaper" class="settings-button"
-        title="Restaurar fundo original">
-        ↺
-    </button>
+            <!-- CONTROLES DO PAPEL DE PAREDE -->
+            <div class="wallpaper-controls">
 
-    <input
-        type="file"
-        id="wallpaperInput"
-        accept="image/*"
-        hidden
-    >
-</div>
+                <button
+                    id="changeWallpaper"
+                    class="wallpaper-button"
+                    type="button">
+                    Alterar fundo
+                </button>
+
+                <button
+                    id="resetWallpaper"
+                    class="settings-button"
+                    type="button"
+                    title="Restaurar fundo original"
+                    aria-label="Restaurar fundo original">
+                    ↺
+                </button>
+
+                <input
+                    type="file"
+                    id="wallpaperInput"
+                    accept="image/*"
+                    hidden
+                >
+
+            </div>
+
         </div>
+
     </header>
 
+    <!-- CONTEÚDO PRINCIPAL -->
     <main class="dashboard">
 
-      <section class="welcome">
-    <p class="eyebrow">YOUR DIGITAL UNIVERSE</p>
-    <h1>Bem-vindo,<br><span>Vitor.</span></h1>
-    <p class="welcome-description">
-        Seu universo digital, do seu jeito.
-    </p>
-</section>
+        <!-- APRESENTAÇÃO -->
+        <section class="welcome">
 
+            <p class="eyebrow">YOUR DIGITAL UNIVERSE</p>
+
+            <h1>
+                Bem-vindo,<br>
+                <span>Vitor.</span>
+            </h1>
+
+            <p class="welcome-description">
+                Seu universo digital, do seu jeito.
+            </p>
+
+        </section>
+
+        <!-- APLICATIVOS FAVORITOS -->
         <section class="favorites">
+
             <div class="section-heading">
+
                 <div>
                     <p class="eyebrow">ACESSO RÁPIDO</p>
                     <h2>Mais utilizados</h2>
                 </div>
-                <span class="section-caption">SEUS FAVORITOS</span>
+
+                <span class="section-caption">
+                    SEUS FAVORITOS
+                </span>
+
             </div>
 
             <div class="app-grid">
 
-                <button class="app-card" tabindex="0">
+                <button class="app-card" type="button" tabindex="0">
                     <span class="app-icon youtube">▶</span>
                     <span>YouTube</span>
                 </button>
 
-                <button class="app-card" tabindex="0">
+                <button class="app-card" type="button" tabindex="0">
                     <span class="app-icon streaming">N</span>
                     <span>Streaming</span>
                 </button>
 
-                <button class="app-card" tabindex="0">
+                <button class="app-card" type="button" tabindex="0">
                     <span class="app-icon browser">◎</span>
                     <span>Navegador</span>
                 </button>
 
-                <button class="app-card" tabindex="0">
+                <button class="app-card" type="button" tabindex="0">
                     <span class="app-icon music">♫</span>
                     <span>Música</span>
                 </button>
 
             </div>
+
         </section>
 
+        <!-- BIBLIOTECA DE APLICATIVOS -->
         <section class="library">
+
             <div class="library-info">
+
                 <div>
                     <p class="eyebrow">SUA BIBLIOTECA</p>
                     <h2>Meus aplicativos</h2>
                 </div>
 
-                <button class="library-button" tabindex="0">
+                <button
+                    class="library-button"
+                    type="button"
+                    tabindex="0">
+
                     <span>▦</span>
                     Ver todos
+
                 </button>
+
             </div>
+
         </section>
 
     </main>
 
+    <!-- RODAPÉ -->
     <footer class="footer">
+
         <span>NOVA SMART LAUNCHER</span>
         <span>EXPLORE YOUR UNIVERSE</span>
+
     </footer>
 
+    <!-- JAVASCRIPT -->
     <script src="app.js"></script>
 
 </body>
