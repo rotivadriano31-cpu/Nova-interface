@@ -1,27 +1,117 @@
+// =====================================
+// NOVA - SYSTEM FUNCTIONS
+// =====================================
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("NOVA: JavaScript carregado!");
+    // RELÓGIO
+    function updateClock() {
+        const clock = document.getElementById("clock");
 
+        if (!clock) return;
+
+        const now = new Date();
+
+        clock.textContent = now.toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+
+    // PAPEL DE PAREDE
     const botao = document.getElementById("changeWallpaper");
     const seletor = document.getElementById("wallpaperInput");
+    const resetar = document.getElementById("resetWallpaper");
+    const fundo = document.querySelector(".space-background");
 
-    if (!botao) {
-        alert("ERRO: botão Alterar fundo não encontrado!");
-        return;
+    const STORAGE_KEY = "nova-wallpaper";
+
+    // Recuperar imagem salva
+    const imagemSalva = localStorage.getItem(STORAGE_KEY);
+
+    if (imagemSalva && fundo) {
+        fundo.style.backgroundImage = `url("${imagemSalva}")`;
+        fundo.style.backgroundSize = "cover";
+        fundo.style.backgroundPosition = "center";
     }
 
-    if (!seletor) {
-        alert("ERRO: seletor de imagens não encontrado!");
-        return;
+    // Abrir seletor de imagens
+    if (botao && seletor) {
+        botao.addEventListener("click", function () {
+            seletor.click();
+        });
     }
 
-    botao.addEventListener("click", function () {
+    // Aplicar imagem escolhida
+    if (seletor && fundo) {
+        seletor.addEventListener("change", function () {
 
-        alert("O botão do NOVA está funcionando!");
+            const arquivo = seletor.files[0];
 
-        seletor.click();
+            if (!arquivo) return;
 
+            if (!arquivo.type.startsWith("image/")) {
+                alert("Selecione um arquivo de imagem válido.");
+                return;
+            }
+
+            // Evitar imagens muito grandes
+            if (arquivo.size > 5 * 1024 * 1024) {
+                alert("A imagem deve ter no máximo 5 MB.");
+                seletor.value = "";
+                return;
+            }
+
+            const leitor = new FileReader();
+
+            leitor.onload = function (evento) {
+
+                const imagem = evento.target.result;
+
+                try {
+                    localStorage.setItem(STORAGE_KEY, imagem);
+
+                    fundo.style.backgroundImage = `url("${imagem}")`;
+                    fundo.style.backgroundSize = "cover";
+                    fundo.style.backgroundPosition = "center";
+
+                } catch (erro) {
+                    alert("Não foi possível salvar a imagem. Tente uma imagem menor.");
+                }
+            };
+
+            leitor.readAsDataURL(arquivo);
+        });
+    }
+
+    // Restaurar fundo original
+    if (resetar && fundo) {
+        resetar.addEventListener("click", function () {
+
+            localStorage.removeItem(STORAGE_KEY);
+
+            fundo.style.backgroundImage = "";
+
+            seletor.value = "";
+
+            alert("Papel de parede restaurado!");
+        });
+    }
+
+
+    // APLICATIVOS
+    const appCards = document.querySelectorAll(".app-card");
+
+    appCards.forEach((card, index) => {
+        card.addEventListener("click", function () {
+            console.log("Aplicativo selecionado:", index + 1);
+        });
     });
+
+    console.log("NOVA: sistema iniciado com sucesso!");
 
 });
