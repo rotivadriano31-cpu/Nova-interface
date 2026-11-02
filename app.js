@@ -1,13 +1,17 @@
 
-// =====================================
-// NOVA - SYSTEM FUNCTIONS
-// =====================================
+/* =====================================
+   NOVA - SYSTEM FUNCTIONS
+===================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    // =====================================
     // RELÓGIO
+    // =====================================
+
     function updateClock() {
         const clock = document.getElementById("clock");
+
         if (!clock) return;
 
         clock.textContent = new Date().toLocaleTimeString("pt-BR", {
@@ -20,7 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(updateClock, 1000);
 
 
+    // =====================================
     // PAPEL DE PAREDE
+    // =====================================
+
     const botao = document.getElementById("changeWallpaper");
     const seletor = document.getElementById("wallpaperInput");
     const resetar = document.getElementById("resetWallpaper");
@@ -28,8 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const STORAGE_KEY = "nova-wallpaper";
 
-    // Aplicar imagem
     function aplicarImagem(imagem) {
+        if (!fundo) return;
+
         fundo.style.backgroundImage = `url("${imagem}")`;
         fundo.style.backgroundSize = "cover";
         fundo.style.backgroundPosition = "center";
@@ -40,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
         const imagemSalva = localStorage.getItem(STORAGE_KEY);
 
-        if (imagemSalva && fundo) {
+        if (imagemSalva) {
             aplicarImagem(imagemSalva);
         }
     } catch (erro) {
@@ -59,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         seletor.addEventListener("change", function () {
 
             const arquivo = seletor.files[0];
+
             if (!arquivo) return;
 
             if (!arquivo.type.startsWith("image/")) {
@@ -75,12 +84,15 @@ document.addEventListener("DOMContentLoaded", function () {
             const leitor = new FileReader();
 
             leitor.onload = function (evento) {
+
                 const imagem = evento.target.result;
 
                 try {
                     aplicarImagem(imagem);
                     localStorage.setItem(STORAGE_KEY, imagem);
+
                     console.log("NOVA: papel de parede atualizado!");
+
                 } catch (erro) {
                     console.error("Erro ao salvar imagem:", erro);
                     alert("Não foi possível salvar a imagem.");
@@ -98,26 +110,149 @@ document.addEventListener("DOMContentLoaded", function () {
     // Restaurar fundo original
     if (resetar) {
         resetar.addEventListener("click", function () {
-            localStorage.removeItem(STORAGE_KEY);
 
-            if (fundo) {
-                fundo.style.backgroundImage = "";
+            try {
+                localStorage.removeItem(STORAGE_KEY);
+
+                if (fundo) {
+                    fundo.style.backgroundImage = "";
+                }
+
+                if (seletor) {
+                    seletor.value = "";
+                }
+
+                console.log("NOVA: fundo original restaurado!");
+
+            } catch (erro) {
+                console.error("Erro ao restaurar fundo:", erro);
             }
-
-            if (seletor) {
-                seletor.value = "";
-            }
-
-            alert("Papel de parede restaurado!");
         });
     }
 
-    // APLICATIVOS
-    document.querySelectorAll(".app-card").forEach(function (card, index) {
+
+    // =====================================
+    // APLICATIVOS FAVORITOS
+    // =====================================
+
+    const appCards = Array.from(
+        document.querySelectorAll(".app-card")
+    );
+
+    let aplicativoSelecionado = 0;
+
+    function destacarAplicativo(indice) {
+
+        if (appCards.length === 0) return;
+
+        aplicativoSelecionado =
+            (indice + appCards.length) % appCards.length;
+
+        appCards.forEach(function (card, index) {
+
+            card.classList.toggle(
+                "selected",
+                index === aplicativoSelecionado
+            );
+        });
+
+        appCards[aplicativoSelecionado].focus();
+    }
+
+    // Seleção por foco e clique
+    appCards.forEach(function (card, index) {
+
+        card.addEventListener("focus", function () {
+
+            aplicativoSelecionado = index;
+
+            appCards.forEach(function (item, itemIndex) {
+                item.classList.toggle(
+                    "selected",
+                    itemIndex === index
+                );
+            });
+        });
+
         card.addEventListener("click", function () {
-            console.log("Aplicativo selecionado:", index + 1);
+            destacarAplicativo(index);
+
+            console.log(
+                "NOVA: aplicativo selecionado:",
+                card.textContent.trim()
+            );
         });
     });
 
+
+    // =====================================
+    // NAVEGAÇÃO POR TECLADO / CONTROLE
+    // =====================================
+
+    document.addEventListener("keydown", function (evento) {
+
+        if (appCards.length === 0) return;
+
+        const ativo = document.activeElement;
+        const indiceAtual = appCards.indexOf(ativo);
+
+        if (evento.key === "ArrowRight") {
+            evento.preventDefault();
+
+            destacarAplicativo(
+                indiceAtual >= 0
+                    ? indiceAtual + 1
+                    : aplicativoSelecionado + 1
+            );
+        }
+
+        else if (evento.key === "ArrowLeft") {
+            evento.preventDefault();
+
+            destacarAplicativo(
+                indiceAtual >= 0
+                    ? indiceAtual - 1
+                    : aplicativoSelecionado - 1
+            );
+        }
+
+        else if (evento.key === "ArrowDown") {
+            evento.preventDefault();
+
+            destacarAplicativo(
+                indiceAtual >= 0
+                    ? indiceAtual + 2
+                    : aplicativoSelecionado + 2
+            );
+        }
+
+        else if (evento.key === "ArrowUp") {
+            evento.preventDefault();
+
+            destacarAplicativo(
+                indiceAtual >= 0
+                    ? indiceAtual - 2
+                    : aplicativoSelecionado - 2
+            );
+        }
+
+        else if (
+            evento.key === "Enter" ||
+            evento.key === " "
+        ) {
+
+            if (indiceAtual >= 0) {
+                evento.preventDefault();
+                appCards[indiceAtual].click();
+            }
+        }
+    });
+
+
+    // =====================================
+    // INICIALIZAÇÃO
+    // =====================================
+
     console.log("NOVA: sistema iniciado com sucesso!");
+
 });
