@@ -27,7 +27,9 @@ body {
     position: relative;
 }
 
-/* FUNDO ESPACIAL */
+/* =====================================
+   FUNDO ESPACIAL
+===================================== */
 
 .space-background {
     position: fixed;
@@ -42,6 +44,10 @@ body {
         radial-gradient(ellipse at 50% 50%,
             rgba(30, 22, 55, 0.4), transparent 65%),
         linear-gradient(135deg, #080711, #100B20 55%, #080711);
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .space-background::before,
@@ -60,6 +66,7 @@ body {
         radial-gradient(1px 1px at 85% 80%, white 50%, transparent),
         radial-gradient(1px 1px at 55% 15%, white 50%, transparent),
         radial-gradient(2px 2px at 92% 12%, white 50%, transparent);
+
     background-size: 280px 240px;
     opacity: 0.65;
 }
@@ -72,14 +79,17 @@ body {
     );
 }
 
-/* CABEÇALHO */
+/* =====================================
+   CABEÇALHO
+===================================== */
 
 .topbar {
-    height: 90px;
-    padding: 0 7%;
+    min-height: 90px;
+    padding: 15px 7%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
     border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
@@ -121,15 +131,54 @@ body {
     font-weight: bold;
 }
 
-.settings-button {
-    background: transparent;
-    border: 0;
-    color: var(--violet-light);
-    font-size: 23px;
-    cursor: pointer;
+/* =====================================
+   PERSONALIZAÇÃO DO PAPEL DE PAREDE
+===================================== */
+
+.wallpaper-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* CONTEÚDO PRINCIPAL */
+.wallpaper-button {
+    padding: 10px 15px;
+    border: 1px solid rgba(167, 139, 250, 0.45);
+    border-radius: 8px;
+    background: rgba(167, 139, 250, 0.12);
+    color: var(--violet-light);
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.wallpaper-button:hover,
+.wallpaper-button:focus {
+    outline: 2px solid var(--violet);
+    background: rgba(167, 139, 250, 0.25);
+}
+
+.settings-button {
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-radius: 8px;
+    background: rgba(167, 139, 250, 0.10);
+    color: var(--violet-light);
+    cursor: pointer;
+    font-size: 22px;
+    transition: 0.2s;
+}
+
+.settings-button:hover,
+.settings-button:focus {
+    outline: 2px solid var(--violet);
+    background: rgba(167, 139, 250, 0.25);
+}
+
+/* =====================================
+   CONTEÚDO PRINCIPAL
+===================================== */
 
 .dashboard {
     width: 86%;
@@ -165,7 +214,9 @@ body {
     font-size: 15px;
 }
 
-/* APLICATIVOS */
+/* =====================================
+   APLICATIVOS FAVORITOS
+===================================== */
 
 .section-heading,
 .library-info {
@@ -246,7 +297,9 @@ body {
     background: linear-gradient(135deg, #B14DE5, #55228B);
 }
 
-/* BIBLIOTECA */
+/* =====================================
+   BIBLIOTECA
+===================================== */
 
 .library {
     margin-top: 55px;
@@ -262,6 +315,7 @@ body {
     color: var(--violet-light);
     font-size: 13px;
     cursor: pointer;
+    transition: 0.2s;
 }
 
 .library-button:hover,
@@ -270,7 +324,9 @@ body {
     background: rgba(167,139,250,0.22);
 }
 
-/* RODAPÉ */
+/* =====================================
+   RODAPÉ
+===================================== */
 
 .footer {
     position: absolute;
@@ -284,19 +340,30 @@ body {
     letter-spacing: 2px;
 }
 
-/* TELAS MENORES */
+/* =====================================
+   TELAS MENORES
+===================================== */
 
 @media (max-width: 650px) {
+
     .topbar {
-        padding: 0 5%;
+        padding: 15px 5%;
+        flex-wrap: wrap;
     }
 
     .system-info {
         gap: 12px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
     }
 
     .status {
         display: none;
+    }
+
+    .wallpaper-button {
+        padding: 8px 10px;
+        font-size: 11px;
     }
 
     .dashboard {
@@ -311,9 +378,15 @@ body {
         grid-template-columns: repeat(2, minmax(100px, 1fr));
     }
 
+    .section-caption {
+        display: none;
+    }
+
     .footer {
         position: relative;
         margin-top: 30px;
         padding-bottom: 20px;
+        gap: 15px;
+        flex-wrap: wrap;
     }
 }
