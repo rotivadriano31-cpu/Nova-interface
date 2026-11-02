@@ -1,0 +1,205 @@
+
+/* =================================
+   NOVA - IDENTIDADE VISUAL
+================================= */
+
+:root {
+    --background: #080910;
+    --surface: #121421;
+    --primary: #a78bfa;
+    --text: #ffffff;
+    --muted: #a3a3b5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+}
+
+/* CABEÇALHO */
+
+.topbar {
+    height: 85px;
+    padding: 0 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(8, 9, 16, 0.95);
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 4px;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+nav {
+    display: flex;
+    gap: 35px;
+}
+
+nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: var(--primary);
+}
+
+.profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #080910;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+}
+
+/* DESTAQUE PRINCIPAL */
+
+.hero {
+    min-height: 500px;
+    padding: 100px 8%;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(90deg, #080910 5%, rgba(8,9,16,.75) 50%, transparent),
+        linear-gradient(0deg, #080910, transparent 50%),
+        url("https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.subtitle {
+    color: var(--primary);
+    font-size: 13px;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.hero h1 {
+    font-size: clamp(40px, 5vw, 65px);
+    margin-bottom: 20px;
+}
+
+.description {
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 30px;
+    font-size: 17px;
+}
+
+.hero button {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    background: var(--primary);
+    color: #080910;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hero button:hover {
+    transform: scale(1.05);
+    background: white;
+}
+
+/* SEÇÕES */
+
+.content-section {
+    padding: 35px 6%;
+}
+
+.content-section h2 {
+    font-size: 23px;
+    margin-bottom: 25px;
+}
+
+/* CARDS */
+
+.movie-grid,
+.app-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.movie-card {
+    min-height: 190px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #29223e, #121421);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.movie-card:hover,
+.app-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--primary);
+}
+
+.app-card {
+    padding: 30px 15px;
+    background: var(--surface);
+    border: 1px solid #292b3a;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+/* TELAS MENORES */
+
+@media (max-width: 700px) {
+    .topbar {
+        padding: 0 4%;
+    }
+
+    nav {
+        gap: 12px;
+    }
+
+    nav a {
+        font-size: 11px;
+    }
+
+    .hero {
+        min-height: 400px;
+        padding: 60px 6%;
+    }
+
+    .movie-grid,
+    .app-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
