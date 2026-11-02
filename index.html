@@ -4,68 +4,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#080910">
+    <meta name="theme-color" content="#080711">
 
-    <title>NOVA | Smart Entertainment</title>
+    <title>NOVA | Smart Launcher</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+    <div class="space-background"></div>
+
     <header class="topbar">
         <div class="logo">NOVA<span>.</span></div>
 
-        <nav>
-            <a href="#inicio">Início</a>
-            <a href="#filmes">Filmes</a>
-            <a href="#series">Séries</a>
-            <a href="#apps">Aplicativos</a>
-        </nav>
-
-        <div class="profile">N</div>
+        <div class="system-info">
+            <span class="status">
+                <span class="status-dot"></span>
+                Sistema online
+            </span>
+            <span id="clock">00:00</span>
+            <button class="settings-button" aria-label="Configurações">⚙</button>
+        </div>
     </header>
 
-    <main>
-        <section class="hero" id="inicio">
-            <div class="hero-content">
-                <p class="subtitle">NOVA ORIGINAL</p>
+    <main class="dashboard">
 
-                <h1>Entre em outro universo.</h1>
+        <section class="welcome">
+            <p class="eyebrow">YOUR DIGITAL UNIVERSE</p>
+            <h1>Seu universo.<br><span>Suas escolhas.</span></h1>
+            <p class="welcome-description">
+                Tudo o que você gosta, em um só lugar.
+            </p>
+        </section>
 
-                <p class="description">
-                    Seu entretenimento. Sua experiência.
-                    Um novo jeito de assistir.
-                </p>
+        <section class="favorites">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">ACESSO RÁPIDO</p>
+                    <h2>Mais utilizados</h2>
+                </div>
+                <span class="section-caption">SEUS FAVORITOS</span>
+            </div>
 
-                <button onclick="alert('Bem-vindo ao NOVA!')">
-                    Explorar agora
+            <div class="app-grid">
+
+                <button class="app-card" tabindex="0">
+                    <span class="app-icon youtube">▶</span>
+                    <span>YouTube</span>
+                </button>
+
+                <button class="app-card" tabindex="0">
+                    <span class="app-icon streaming">N</span>
+                    <span>Streaming</span>
+                </button>
+
+                <button class="app-card" tabindex="0">
+                    <span class="app-icon browser">◎</span>
+                    <span>Navegador</span>
+                </button>
+
+                <button class="app-card" tabindex="0">
+                    <span class="app-icon music">♫</span>
+                    <span>Música</span>
+                </button>
+
+            </div>
+        </section>
+
+        <section class="library">
+            <div class="library-info">
+                <div>
+                    <p class="eyebrow">SUA BIBLIOTECA</p>
+                    <h2>Meus aplicativos</h2>
+                </div>
+
+                <button class="library-button" tabindex="0">
+                    <span>▦</span>
+                    Ver todos
                 </button>
             </div>
         </section>
 
-        <section class="content-section" id="filmes">
-            <h2>Em destaque</h2>
-
-            <div class="movie-grid">
-                <div class="movie-card">NOVA CINEMA</div>
-                <div class="movie-card">NOVA SERIES</div>
-                <div class="movie-card">NOVA PLAY</div>
-                <div class="movie-card">NOVA WORLD</div>
-            </div>
-        </section>
-
-        <section class="content-section" id="apps">
-            <h2>Central NOVA</h2>
-
-            <div class="app-grid">
-                <div class="app-card">Aplicativos</div>
-                <div class="app-card">NOVA Remote</div>
-                <div class="app-card">NOVA Ambient</div>
-                <div class="app-card">Configurações</div>
-            </div>
-        </section>
     </main>
+
+    <footer class="footer">
+        <span>NOVA SMART LAUNCHER</span>
+        <span>EXPLORE YOUR UNIVERSE</span>
+    </footer>
+
+    <script src="app.js"></script>
 
 </body>
 </html>
