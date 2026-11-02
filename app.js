@@ -1,129 +1,122 @@
 
-// =====================================
-// NOVA - SYSTEM FUNCTIONS
-// =====================================
+document.addEventListener("DOMContentLoaded", () => {
 
+    // =====================================
+    // NOVA - SYSTEM FUNCTIONS
+    // =====================================
 
-// =====================================
-// RELÓGIO
-// =====================================
-
-function updateClock() {
+    // RELÓGIO
     const clock = document.getElementById("clock");
 
-    if (!clock) return;
+    function updateClock() {
+        if (!clock) return;
 
-    const now = new Date();
+        clock.textContent = new Date().toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    }
 
-    clock.textContent = now.toLocaleTimeString("pt-BR", {
-        hour: "2-digit",
-        minute: "2-digit"
-    });
-}
-
-updateClock();
-setInterval(updateClock, 1000);
+    updateClock();
+    setInterval(updateClock, 1000);
 
 
-// =====================================
-// PAPEL DE PAREDE PERSONALIZADO
-// =====================================
+    // =====================================
+    // PAPEL DE PAREDE
+    // =====================================
 
-const wallpaperInput = document.getElementById("wallpaperInput");
-const changeWallpaper = document.getElementById("changeWallpaper");
-const resetWallpaper = document.getElementById("resetWallpaper");
-const spaceBackground = document.querySelector(".space-background");
+    const changeWallpaper = document.getElementById("changeWallpaper");
+    const resetWallpaper = document.getElementById("resetWallpaper");
+    const wallpaperInput = document.getElementById("wallpaperInput");
+    const spaceBackground = document.querySelector(".space-background");
 
-// Recuperar papel de parede salvo
-const savedWallpaper = localStorage.getItem("novaWallpaper");
+    // Verificar se os elementos existem
+    if (changeWallpaper && wallpaperInput && spaceBackground) {
 
-function applyWallpaper(image) {
-    if (!spaceBackground) return;
+        // Aplicar imagem
+        function applyWallpaper(image) {
+            spaceBackground.style.backgroundImage = `
+                linear-gradient(rgba(8,7,17,0.30), rgba(8,7,17,0.55)),
+                url("${image}")
+            `;
 
-    spaceBackground.style.backgroundImage = `
-        linear-gradient(rgba(8, 7, 17, 0.30), rgba(8, 7, 17, 0.55)),
-        url("${image}")
-    `;
-
-    spaceBackground.style.backgroundSize = "cover";
-    spaceBackground.style.backgroundPosition = "center";
-    spaceBackground.style.backgroundRepeat = "no-repeat";
-}
-
-// Aplicar imagem salva ao abrir o NOVA
-if (savedWallpaper) {
-    applyWallpaper(savedWallpaper);
-}
-
-// Abrir seletor de imagens
-if (changeWallpaper && wallpaperInput) {
-    changeWallpaper.addEventListener("click", () => {
-        wallpaperInput.click();
-    });
-}
-
-// Selecionar nova imagem
-if (wallpaperInput) {
-    wallpaperInput.addEventListener("change", (event) => {
-
-        const file = event.target.files[0];
-
-        if (!file) return;
-
-        if (!file.type.startsWith("image/")) {
-            alert("Selecione um arquivo de imagem válido.");
-            return;
+            spaceBackground.style.backgroundSize = "cover";
+            spaceBackground.style.backgroundPosition = "center";
+            spaceBackground.style.backgroundRepeat = "no-repeat";
         }
 
-        const reader = new FileReader();
+        // Recuperar imagem salva
+        const savedWallpaper = localStorage.getItem("novaWallpaper");
 
-        reader.onload = () => {
-            try {
-                localStorage.setItem("novaWallpaper", reader.result);
-                applyWallpaper(reader.result);
+        if (savedWallpaper) {
+            applyWallpaper(savedWallpaper);
+        }
 
-            } catch (error) {
-                alert(
-                    "Não foi possível salvar a imagem. " +
-                    "Tente utilizar uma foto menor."
-                );
+        // Abrir seletor de arquivos
+        changeWallpaper.addEventListener("click", () => {
+            wallpaperInput.click();
+        });
+
+        // Carregar imagem selecionada
+        wallpaperInput.addEventListener("change", (event) => {
+
+            const file = event.target.files[0];
+
+            if (!file) return;
+
+            if (!file.type.startsWith("image/")) {
+                alert("Selecione uma imagem válida.");
+                return;
             }
-        };
 
-        reader.readAsDataURL(file);
-    });
-}
+            const reader = new FileReader();
 
-// Restaurar fundo espacial original
-if (resetWallpaper) {
-    resetWallpaper.addEventListener("click", () => {
+            reader.onload = () => {
+                try {
+                    localStorage.setItem("novaWallpaper", reader.result);
+                    applyWallpaper(reader.result);
 
-        localStorage.removeItem("novaWallpaper");
+                } catch (error) {
+                    alert("Não foi possível salvar a imagem. Tente uma foto menor.");
+                    console.error(error);
+                }
+            };
 
-        if (spaceBackground) {
-            spaceBackground.style.backgroundImage = "";
-            spaceBackground.style.backgroundSize = "";
-            spaceBackground.style.backgroundPosition = "";
-            spaceBackground.style.backgroundRepeat = "";
+            reader.readAsDataURL(file);
+        });
+
+        // Restaurar fundo original
+        if (resetWallpaper) {
+            resetWallpaper.addEventListener("click", () => {
+
+                localStorage.removeItem("novaWallpaper");
+
+                spaceBackground.style.backgroundImage = "";
+                spaceBackground.style.backgroundSize = "";
+                spaceBackground.style.backgroundPosition = "";
+                spaceBackground.style.backgroundRepeat = "";
+
+                wallpaperInput.value = "";
+            });
         }
 
-        if (wallpaperInput) {
-            wallpaperInput.value = "";
-        }
+    } else {
+        console.error("NOVA: elementos do papel de parede não encontrados.");
+    }
+
+
+    // =====================================
+    // NAVEGAÇÃO DOS APLICATIVOS
+    // =====================================
+
+    const appCards = document.querySelectorAll(".app-card");
+
+    appCards.forEach((card, index) => {
+        card.addEventListener("click", () => {
+            console.log("Aplicativo selecionado:", index + 1);
+        });
     });
-}
 
-
-// =====================================
-// NAVEGAÇÃO POR TECLADO / CONTROLE
-// =====================================
-
-const appCards = document.querySelectorAll(".app-card");
-
-appCards.forEach((card, index) => {
-
-    card.addEventListener("click", () => {
-        console.log("Aplicativo selecionado:", index + 1);
-    });
+    console.log("NOVA carregado com sucesso!");
 
 });
