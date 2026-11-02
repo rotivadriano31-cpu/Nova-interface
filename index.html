@@ -24,7 +24,23 @@
                 Sistema online
             </span>
             <span id="clock">00:00</span>
-            <button class="settings-button" aria-label="Configurações">⚙</button>
+<div class="wallpaper-controls">
+    <button id="changeWallpaper" class="wallpaper-button">
+        Alterar fundo
+    </button>
+
+    <button id="resetWallpaper" class="settings-button"
+        title="Restaurar fundo original">
+        ↺
+    </button>
+
+    <input
+        type="file"
+        id="wallpaperInput"
+        accept="image/*"
+        hidden
+    >
+</div>
         </div>
     </header>
 
